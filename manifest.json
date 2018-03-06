@@ -7,7 +7,8 @@
 	},
 	"content_scripts": [ {
 		"js": ["kanji_content_detect.js"],
-		"matches": ["http://*/*", "https://*/*", "file://*/*"]
+		"matches": ["http://*/*", "https://*/*", "file://*/*"],
+		"all_frames": true
 	} ],
 	"default_locale": "en",
 	"description": "__MSG_manifestExtDescription__",
@@ -22,12 +23,11 @@
 		"default_icon": {"38": "img/icons/furigana_inactive_76.png"},
 		"default_title": "Toggle furigana"
 	},
-	"permissions": ["http://*/*", "https://*/*", "file://*/*", "activeTab", "tabs"],
+	"permissions": ["http://*/*", "https://*/*", "file://*/*", "<all_urls>", "activeTab", "tabs", "storage"],
 	"commands": {
 		"toggle-furigana": {
 			"suggested_key": {
-				"default": "Alt+Shift+F",
-				"mac": "Alt+Shift+F"
+				"default": "Alt+Q",
 			},
 			"description": "Toggle furigana"
 		}

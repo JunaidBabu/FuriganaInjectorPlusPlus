@@ -5,7 +5,7 @@ var userKanjiRegexp;
 var includeLinkText = false;
 var insertedNodesToCheck = [];
 var insertedNodeCheckTimer = null;
-chrome.extension.sendMessage({message: "config_values_request"}, function(response) {
+chrome.runtime.sendMessage({message: "config_values_request"}, function(response) {
 	userKanjiRegexp = new RegExp("[" + response.userKanjiList + "]");
 	includeLinkText = JSON.parse(response.includeLinkText);
 	persistentMode = JSON.parse(response.persistentMode);
@@ -13,7 +13,7 @@ chrome.extension.sendMessage({message: "config_values_request"}, function(respon
 	// If none find, do nothing for now except start a listener for node insertions
 	// If persistent mode enabled - enable furigana right away
 	if (document.body.innerText.match(/[\u3400-\u9FBF]/) || persistentMode)
-		chrome.extension.sendMessage({message: "init_tab_for_fi"});
+		chrome.runtime.sendMessage({message: "init_tab_for_fi"});
 	else
 		document.addEventListener("DOMNodeInserted", DOMNodeInsertedHandler);
 });
@@ -41,7 +41,7 @@ function checkInsertedNodes() {
 	var s = a.join("");	
 	if (s.match(/[\u3400-\u9FBF]/)) {
 		document.removeEventListener("DOMNodeInserted", DOMNodeInsertedHandler);
-		chrome.extension.sendMessage({message: "init_tab_for_fi"});
+		chrome.runtime.sendMessage({message: "init_tab_for_fi"}); //chrome.extension.sendMessage({message: "init_tab_for_fi"});
 		return;
 	}
 }
